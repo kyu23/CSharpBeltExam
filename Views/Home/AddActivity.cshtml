@@ -1,0 +1,35 @@
+@model Activity
+
+<div class="jumbotron bg-dark text-white">Create An Activity</div>
+<form action="/activity/create" method="post">
+    <div class="form-group">
+        <label asp-for="Title">Title:</label>
+        <input asp-for="Title" class="form-control">
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartDate">Start Date:</label>
+        <input asp-for="StartDate" class="form-control">
+        <span class="text-danger" asp-validation-for="StartDate"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Time">Time:</label>
+        <input asp-for="Time" class="form-control">
+        <span class="text-danger" asp-validation-for="Time"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Duration">Duration:</label>
+        <input asp-for="Duration" class="form-control">
+        <span class="text-danger" asp-validation-for="Duration"></span>
+        <select for="hoursMinutes">
+            <option asp-for="hoursMinutes" class="form-control">Hours</option>
+            <option asp-for="hoursMinutes" class="form-control">Minutes</option>
+        </select>
+    </div>
+    <div class="form-group">
+                <label>Description:</label>
+                <textarea asp-for="Description" class="form-control" ></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+    <input type="submit" value="Add Activity" class="btn btn-primary">
+</form>

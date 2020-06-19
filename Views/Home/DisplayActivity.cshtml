@@ -1,0 +1,28 @@
+@model Activity
+
+<div class="row">
+    <div class="col-sm-8 offset-sm-2">
+        <div class="card">
+        <div class="card-header bg-dark text-white">@Model.Title</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-8">
+                    <p>Event Coordinator: @Model.Organizer.Name</p>
+                    <p>Description: @Model.Description</p>
+                    
+                    
+                </div>
+                <div class="col-sm-4">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-dark text-white">Guests:</li>
+                @foreach( var w in Model.Guests )
+                {
+                    <li class="list-group-item">@w.ActivityGoer.Name</li>
+                }
+            </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

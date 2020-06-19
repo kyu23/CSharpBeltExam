@@ -1,0 +1,52 @@
+@model List<Activity>
+
+<div class="jumbotron bg-dark text-white">
+    <h1>Dojo Activity Center</h1> 
+</div>
+<h1>Welcome @ViewBag.User.Name!</h1> <a class="btn btn-outline-danger" href="/logout">Logout</a>
+
+<table class="table border border-danger">
+    <thead class="bg-success text-white">
+        <tr>
+            <th>Activity</th>
+            <th>Date and Time</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th># of Participants</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Activity a in Model)
+        {
+            <tr>
+                <td><a href="/activity/@a.ActivityId">@a.Title</a></td>
+                <td>@a.StartDate.ToShortDateString() @@ @a.Time.ToShortTimeString()</td>
+                <td>@a.Duration</td> @* //how do i get the hours/minutes in there? *@
+                <td>@a.Organizer.Name</td>
+                <td>@a.Guests.Count</td>
+                <td>
+                    @if(ViewBag.User.UserId == a.Organizer.UserId)
+                    {
+                        <a class="btn btn-warning btn-sm" href="/activity/@a.ActivityId/delete">Delete</a>
+                    }
+                    else
+                    {
+                        @* see if they're watching *@
+                        if(a.Guests.Any( wp => wp.UserId == ViewBag.User.UserId ))
+                        {
+                            <a class="btn btn-outline-dark btn-sm" asp-action="ToggleParty" asp-route-activityId="@a.ActivityId" asp-route-status="leave">Leave</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-success btn-sm" asp-action="ToggleParty" asp-route-activityId="@a.ActivityId" asp-route-status="join">Join</a>
+                        }
+                    }
+                </td>
+            </tr>
+            
+        }
+    </tbody>
+    
+</table> 
+<a href="/activity/new" class="btn btn-outline-primary">Add a New Activity</a>
